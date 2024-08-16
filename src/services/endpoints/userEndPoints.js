@@ -1,0 +1,25 @@
+const userRoutes={
+  signUp:'api/auth/signup',
+  reSend:'api/auth/resend',
+  verifyOtp:'api/auth/verifyOtp',
+  signIn:'api/auth/signIn',
+  isUser:'api/auth/verifyToken',
+  logout:'api/auth/logout',
+  google:'api/auth/google',
+  googleUpdate:'api/auth/googleUpdate',
+  userProfile:'api/user/getUserProfile',
+  updateProfile:'api/user/profileUpdate',
+  isBlocked:'/api/auth/isBlocked',
+  saveProfileImg:'api/user/saveProfileImg',
+  friendProfile:'api/user/friendProfile',
+  forgotOtp:'api/auth/forgotOtp',
+  changepass:'api/auth/changePass',
+  searchUsers:'api/user/searchUsers',
+  getToken:'api/auth/getToken',
+  fetchFriends:'api/user/fetchFriends',
+  unFriendRoute:'api/user/unfriend',
+  searchFriendRoute:'api/user/searchFriend',
+  blockUser:'api/user/blockUser',
+  unBlockUser:'api/user/unblockUser'
+}
+export default userRoutes
