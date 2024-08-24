@@ -16,7 +16,7 @@ const Home = () => {
         <div className="bg-zinc-800 h-screen flex fixed  text-white  w-1/5 p-4">
           <nav className="space-y-4">
             <h1 className='text-2xl'>Admin Page</h1>
-            <Link to="/dashboard" className="flex items-center space-x-2 hover:bg-zinc-700 p-2 rounded">
+            <Link to="/adminHome/dashboard" className="flex items-center space-x-2 hover:bg-zinc-700 p-2 rounded">
               <FontAwesomeIcon icon={faChartLine} className="text-xl" />
               <span>Dashboard</span>
             </Link>
@@ -24,7 +24,7 @@ const Home = () => {
               <FontAwesomeIcon icon={faUsers} className="text-xl" />
               <span>Users</span>
             </Link>
-            <Link to="/reports" className="flex items-center space-x-2 hover:bg-zinc-700 p-2 rounded">
+            <Link to="/adminHome/reports" className="flex items-center space-x-2 hover:bg-zinc-700 p-2 rounded">
               <FontAwesomeIcon icon={faChartBar} className="text-xl" />
               <span>Reports</span>
             </Link>

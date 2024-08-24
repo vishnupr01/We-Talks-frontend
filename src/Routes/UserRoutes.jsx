@@ -28,6 +28,8 @@ import DefaultMsg from '../Components/User/DefaultMsg';
 import MessageBox from '../Components/User/MessageBox';
 import FriendRequestsList from '../Components/User/FriendRequestsList';
 import FriendPage from '../Components/User/FriendsPage';
+import Room from '../Components/User/Room';
+import Lobby from '../Components/User/Lobby';
 
 function UserRoutes() {
   return (
@@ -42,6 +44,8 @@ function UserRoutes() {
 
         <Route element={<PrivateRoute />}>
           <Route path='/home' element={<Home />}>
+          <Route path='/home/lobby' element={<Lobby/>}/>
+          <Route path='/home/room' element={<Room/>}/>
             <Route path='/home/friendRequests' element={<FriendRequestsList />} />
             <Route path='/home/profile/friendsList' element={<FriendPage />} />
             <Route path='/home/messages' element={<Message />}>

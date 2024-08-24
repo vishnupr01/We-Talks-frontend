@@ -8,6 +8,7 @@ const postRoutes={
   getLiked:'api/post/getLiked',
   postSave:'api/post/savePost',
   savedPosts:'api/post/savedPosts',
+  reportPost:'api/post/reportPost'
 
 }
 export default postRoutes

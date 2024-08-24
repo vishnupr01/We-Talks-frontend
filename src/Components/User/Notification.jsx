@@ -39,7 +39,7 @@ const Notification = () => {
       notifications.forEach(notification => {
         const category = getTimeCategory(notification.createdAt);
         categorized[category].push({
-          postImg: notification?.postId.images[0], // Ensure this path is correct
+          postImg: notification?.postId?.images[0], // Ensure this path is correct
           action: notification.message,
           avatar: notification.sender.profileImg,
           timeAgo: getTimeAgo(notification.createdAt),

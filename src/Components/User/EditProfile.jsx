@@ -102,7 +102,7 @@ const EditProfile = () => {
         setUserName(userData.userName);
         setName(userData.name);
         setBio(userData.bio);
-        setDob(formatDate(userData.dob));
+        setDob(userData.dob ? formatDate(userData.dob) : '');
         setImg(userData.profileImg)
       }
 

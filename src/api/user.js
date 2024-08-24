@@ -176,3 +176,13 @@ export const unblockUser = async (blockId) => {
     throw error
   }
 }
+
+export const refreshToken = async () => {
+  try {
+    const response = await Api.post(userRoutes.refershToken)
+    console.log("refresh response", response);
+
+  } catch (error) {
+    throw error
+  }
+}

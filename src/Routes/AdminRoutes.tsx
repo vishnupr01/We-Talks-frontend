@@ -5,6 +5,9 @@ import AdminPrivate from '../protection/AdminPrivate';
 import AdminPlogin from '../protection/AdminPlogin';
 import Users from '../Components/Admin/Users';
 import UsersProfile from '../Components/Admin/UserProfile';
+import SocialMediaDashboard from '../Components/Admin/Dashboard';
+import ReportManagement from '../Components/Admin/ReportManagement';
+import PostManagement from '../Components/Admin/PostManagement';
 
 const AdminRoutes = () => {
   return (
@@ -16,6 +19,9 @@ const AdminRoutes = () => {
        <Route path='/adminHome' element={<AdminPrivate/>}>
        <Route path='/adminHome/Users' element={<Users/>}/>
        <Route path='/adminHome/usersprofile' element={<UsersProfile/>}/>
+       <Route path='/adminHome/dashboard' element={<SocialMediaDashboard/>}/>
+       <Route path='/adminHome/reports' element={<ReportManagement/>}/>
+       <Route path='/adminHome/postManagement' element={<PostManagement/>}/>
        </Route>
       </Routes>
     </Router>

@@ -55,7 +55,7 @@ const ProfileComponent = () => {
         <div>
           <div className="flex cu">
             <h2 className="text-2xl mt-2 font-semibold">{userData.userName}</h2>
-            <Link to='/editProfile' className="flex items-center  hover:bg-blue-100  rounded">
+            <Link to='/home/editProfile' className="flex items-center  hover:bg-blue-100  rounded">
             <FontAwesomeIcon icon={faEdit} size="lg" className="mt-2 ml-4 cursor-pointer" />
             </Link>
           </div>

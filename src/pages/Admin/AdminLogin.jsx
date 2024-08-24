@@ -21,7 +21,7 @@ const AdminLogin = () => {
       if (response.data.status === "success") {
         console.log("entering");
         dispatch(Adminlogin());
-        navigate('/adminHome');
+        navigate('/adminHome/dashboard');
       }else{
        
       }

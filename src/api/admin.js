@@ -27,7 +27,7 @@ export const isAdmin = async () => {
 export const getUsers = async (currentPage) => {
   try {
     const result = await Api.get(`${adminRoutes.getUser}?page=${currentPage}`)
-  
+
     console.log(result);
     return result
   } catch (error) {
@@ -37,42 +37,100 @@ export const getUsers = async (currentPage) => {
 }
 export const blockUser = async (email) => {
   try {
-    const response=await Api.patch(adminRoutes.blockUser,{
+    const response = await Api.patch(adminRoutes.blockUser, {
       email
     })
-    console.log("block",response);
+    console.log("block", response);
     return response
   } catch (error) {
 
   }
 
-  
-  
+
+
 }
 export const UnBlockUser = async (email) => {
   try {
-    const response=await Api.patch(adminRoutes.UnBlockUser,{
+    const response = await Api.patch(adminRoutes.UnBlockUser, {
       email
     })
-    console.log("Unblock",response);
-    return response
-  } catch (error) {
- throw error
-  }
-}
-export const getUserAdmin=async(userId)=>{
-  try {
-    const response=await Api.get(`${adminRoutes.getUserProfile}/${userId}`)
+    console.log("Unblock", response);
     return response
   } catch (error) {
     throw error
-    
+  }
+}
+export const getUserAdmin = async (userId) => {
+  try {
+    const response = await Api.get(`${adminRoutes.getUserProfile}/${userId}`)
+    return response
+  } catch (error) {
+    throw error
+
   }
 }
 export const deleteAdminPost = async (postId) => {
   try {
     const response = await Api.delete(`${adminRoutes.deletePost}?postId=${postId}`)
     return response
+  } catch (error) {
+    throw error
+  }
+}
+export const dayDetails = async () => {
+  try {
+    const response = await Api.get(adminRoutes.dayDetails)
+    return response
+
+  } catch (error) {
+    throw error
+  }
+
+
+}
+export const monthDetails = async () => {
+  try {
+    const response = await Api.get(adminRoutes.monthDetails)
+    return response
+
+  } catch (error) {
+    throw error
+  }
+
+
+}
+export const yearDetails = async () => {
+  try {
+    const response = await Api.get(adminRoutes.yearDetails)
+    return response
+
+  } catch (error) {
+    throw error
+  }
+
+
+}
+export const totaUsersAndPosts = async () => {
+  try {
+    const response = await Api.get(adminRoutes.totalData)
+    return response
+  } catch (error) {
+    throw error
+  }
+}
+export const getReports = async () => {
+  try {
+    const response = await Api.get(adminRoutes.getAllReports)
+    return response
+  } catch (error) {
+    throw error
+  }
+}
+export const singlePostAdmin = async (postId) => {
+  try {
+    const response = await Api.get(`${adminRoutes.postManage}?postId=${postId}`)
+    return response
+
   } catch (error) {
     throw error
   }

@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
-import { getLikedPosts, likePost, loadAllPosts, savingPost } from '../../api/post';
+import { getLikedPosts, likePost, loadAllPosts, reportPost, savingPost } from '../../api/post';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBan, faBookBookmark, faSave, faHeart as fasHeart } from '@fortawesome/free-solid-svg-icons';
 import { faHeart as farHeart, faComment as farComment, faPaperPlane as farPaperPlane } from '@fortawesome/free-regular-svg-icons';
@@ -15,6 +15,8 @@ import CommentModal from './comment';
 import { Menu } from '@headlessui/react';
 import { EllipsisVerticalIcon } from '@heroicons/react/24/solid';
 import { getUserProfile } from '../../api/userFunctions';
+import ReportModal from './ReportModal';
+import { toast } from 'react-hot-toast';
 
 const LivePost = () => {
   const [posts, setPosts] = useState([]);
@@ -24,9 +26,19 @@ const LivePost = () => {
   const [hasmore, setHasMore] = useState(true);
   const [loading, setLoading] = useState(false)
   const [blockedUsers, setBlockedUsers] = useState([])
+  const [showReportModal, setShowReportModal] = useState(false)
+  const [reportPostId, setReportPostId] = useState(null)
   const navigate = useNavigate();
   const { id } = useSelector((state) => state.authSlice.user);
 
+  const openReportModal = (postId) => {
+    setReportPostId(postId)
+    setShowReportModal(true)
+  }
+  const closeReportModal = () => {
+    setShowReportModal(false)
+    setReportPostId(null)
+  }
   const openModal = (post) => {
     setSelectedPost(post);
     setShowModal(true);
@@ -68,13 +80,13 @@ const LivePost = () => {
   const likingPost = async (postId) => {
     try {
       const response = await likePost(postId);
-      console.log("what happens on like",response);
-      
+      console.log("what happens on like", response);
+
       // if(response.data.data===null){
       //   return
       // }
       const likedPost = response.data.data;
-      setPosts((prevPosts) => 
+      setPosts((prevPosts) =>
         prevPosts.map((post) =>
           post._id === likedPost._id
             ? { ...post, likes: likedPost.likes, isliked: likedPost.liked.includes(id) }
@@ -87,7 +99,7 @@ const LivePost = () => {
   };
 
   useEffect(() => {
- 
+
     // fetchUserProfile()
     fetchPosts();
 
@@ -106,21 +118,21 @@ const LivePost = () => {
   const fetchPosts = async () => {
     try {
       setLoading(true);
-  
+
       // Execute both API calls in parallel
       const [userProfileResponse, postsResponse] = await Promise.all([
         getUserProfile(),
         loadAllPosts(page)
       ]);
-  
+
       // Process the user profile response
-      const blockedIds = userProfileResponse.data.data.blockedUsers.map(user => user?.blockedId);
+      const blockedIds = userProfileResponse.data.data.blockedUsers?.map(user => user?.blockedId);
       setBlockedUsers(blockedIds);
-  
+
       // Process the posts response
       const postsData = postsResponse.data.data;
-      const filteredPosts = postsData.filter(post => !blockedIds.includes(post.creator_id));
-  
+      const filteredPosts = postsData.filter(post => !blockedIds?.includes(post.creator_id));
+
       // Update posts state
       setPosts(prevPosts => {
         const newPosts = filteredPosts.filter(post => !prevPosts.some(p => p._id === post._id));
@@ -136,7 +148,7 @@ const LivePost = () => {
           }))
         ];
       });
-  
+
     } catch (error) {
       console.error(error);
       if (error.response?.data?.message === 'User is blocked') {
@@ -189,6 +201,23 @@ const LivePost = () => {
       </div>
     );
   }
+  const handleReport = async (description) => {
+    try {
+      console.log("description", description, reportPostId);
+      const response = await reportPost(reportPostId, description)
+      if (response.data.data === "report exists") {
+        toast("report already sent")
+        return
+      }
+      if (response.data.status === "success") {
+        toast.success("Report sent")
+      }
+    } catch (error) {
+      console.error("Error reporting post:", error);
+    } finally {
+      closeReportModal(); // Close the modal
+    }
+  };
 
   const handleFriendProfile = (userId) => {
     if (id === userId) {
@@ -273,6 +302,7 @@ const LivePost = () => {
                         <Menu.Item>
                           {({ active }) => (
                             <div
+                              onClick={() => openReportModal(post._id)}
                               className={`block w-full px-4 py-2 text-left text-sm cursor-pointer ${active ? 'bg-gray-100 text-gray-900' : 'text-gray-700'}`}
                             >
                               <FontAwesomeIcon icon={faBan} className="text-xl" />
@@ -339,6 +369,13 @@ const LivePost = () => {
         </InfiniteScroll>
       </div>
       {showModal && <CommentModal selectedPost={selectedPost} onClose={closeModal} />}
+      {showReportModal && (
+        <ReportModal
+          isOpen={showReportModal}
+          onClose={closeReportModal}
+          onReport={handleReport}
+        />
+      )}
     </div>
   );
 };

@@ -20,6 +20,7 @@ const userRoutes={
   unFriendRoute:'api/user/unfriend',
   searchFriendRoute:'api/user/searchFriend',
   blockUser:'api/user/blockUser',
-  unBlockUser:'api/user/unblockUser'
+  unBlockUser:'api/user/unblockUser',
+  refershToken:'api/auth/refreshToken'
 }
 export default userRoutes
