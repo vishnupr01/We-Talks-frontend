@@ -81,7 +81,7 @@ const FriendRequestsList = () => {
   };
 
   return (
-    <div className="mx-auto bg-gray-100 rounded-lg h-screen max-w-8xl shadow-lg">
+    <div className="mx-auto bg-gray-100 rounded-lg mt-20 h-screen max-w-8xl shadow-lg">
       <div className="p-4 border-b border-gray-300">
         <h1 className="text-2xl font-bold text-black">Friend Requests</h1>
         {friendRequests.length===0&&<p>No friend requests</p>}

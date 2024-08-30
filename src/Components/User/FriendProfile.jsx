@@ -142,7 +142,7 @@ const FriendProfile = () => {
   console.log("checking blocked or not", isBlocked);
 
   return (
-    <div className="bg-white text-black min-h-screen flex flex-col items-center">
+    <div className="bg-whit mt-20 text-black min-h-screen flex flex-col items-center">
       {/* Header Section */}
       <div className="flex items-center justify-between w-full max-w-4xl p-4">
         <div className="flex items-center space-x-4">

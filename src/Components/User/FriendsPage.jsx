@@ -42,7 +42,7 @@ const FriendPage = () => {
   // if (loading) return <div>Loading...</div>;
 
   return (
-    <div className="p-4">
+    <div className="p-4 mt-20">
       <h1 className="text-2xl font-bold mb-4">All friends</h1>
       <div className="relative mb-4">
         <input

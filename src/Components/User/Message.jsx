@@ -56,7 +56,7 @@ const Message = () => {
   // if (loading) return <div>Loading...</div>;
 
   return (
-    <div className="flex flex-col md:flex-row h-screen fixed w-full">
+    <div className="flex flex-col md:flex-row h-screen mt-20 fixed w-full">
       <div className="md:w-1/3 lg:w-1/4 bg-white text-black p-4 h-full overflow-y-auto">
         <div className="mb-4"> 
           <h2 className="text-xl font-bold">{name}</h2>

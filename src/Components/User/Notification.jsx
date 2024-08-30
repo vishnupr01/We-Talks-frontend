@@ -92,7 +92,7 @@ const Notification = () => {
   console.log("new notifications", filteredNotifications);
 
   return (
-    <div className="bg-white text-black p-4 w-full max-w-8xl h-screen mx-auto rounded-lg shadow-lg">
+    <div className="bg-white text-black mt-20 p-4 w-full max-w-8xl h-screen mx-auto rounded-lg shadow-lg">
       <h1 className='font-bold text-2xl'>Notifications</h1>
       {filteredNotifications.length > 0 ? (
         filteredNotifications.map((section, index) => (

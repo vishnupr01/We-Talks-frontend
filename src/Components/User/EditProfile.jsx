@@ -166,7 +166,7 @@ const EditProfile = () => {
     return <div>Loading...</div>;
   }
   return (
-    <div className="min-h-screen bg-gray-200 text-black border flex justify-center items-center">
+    <div className="min-h-screen bg-gray-200 text-black border mt-20 flex justify-center items-center">
       <div className="bg-white p-6 rounded-lg w-full max-w-md">
         <div className="flex items-center space-x-4 mb-6">
           {profileImgLoading?(<p>loading...</p>):(  <img

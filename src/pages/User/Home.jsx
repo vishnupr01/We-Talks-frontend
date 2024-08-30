@@ -9,6 +9,7 @@ import showBlockedAlert from '../../popups/alert';
 import SearchModal from '../../Components/User/SearchModal';
 import { getNotificationCount } from '../../api/notification';
 import { useSocketContext } from '../../context/SocketContext';
+import CreateSpaceModal from '../../Components/User/SpaceModal';
 
 const Modal = React.memo(({ show, onClose }) => {
   const dispatch = useDispatch();
@@ -56,6 +57,7 @@ const Modal = React.memo(({ show, onClose }) => {
 const Home = () => {
   const [showModal, setShowModal] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [showCreateModal,setShowCreateModal]=useState(false)
   const [notificationCount, setNotificationCount] = useState(0);
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
@@ -117,7 +119,12 @@ const Home = () => {
   const handleSearchCloseModal = useCallback(() => {
     setIsModalOpen(false);
   }, []);
-
+const handleCreateOpenModal=useCallback(()=>{
+  setShowCreateModal(true)
+},[])
+const handleCreateCloseModal=useCallback(()=>{
+  setShowCreateModal(false)
+},[])
 
 
   return (
@@ -149,7 +156,7 @@ const Home = () => {
           </Link>
           {notificationCount > 0 && <span className="absolute top-0 right-2 bg-red-500 text-white text-xs rounded-full w-4 h-4 flex items-center justify-center">{notificationCount}</span>}
         </div>
-        <button className="focus:outline-none flex flex-col items-center mb-12">
+        <button onClick={handleCreateOpenModal} className="focus:outline-none flex flex-col items-center mb-12">
           <FontAwesomeIcon icon={faPlus} size="lg" />
           <span className="text-xs">Create</span>
         </button>
@@ -184,7 +191,7 @@ const Home = () => {
             </Link>
           </div>
         </header>
-        <main className="flex-1 bg-gray-100 flex flex-col pt-20">
+        <main className="flex-1 bg-gray-100 flex flex-col ">
           <div className="flex-1 p-1">
             <Outlet />
           </div>
@@ -192,6 +199,7 @@ const Home = () => {
       </div>
      <SearchModal isOpen={isModalOpen} onClose={handleSearchCloseModal} />
       <Modal show={showModal} onClose={handleCloseModal} />
+      <CreateSpaceModal isOpen={showCreateModal} onClose={handleCreateCloseModal}/>
     </div>
   );
 };

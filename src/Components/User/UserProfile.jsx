@@ -43,7 +43,7 @@ const ProfileComponent = () => {
   }
 
   return (
-    <div className="bg-white text-black p-6 min-h-screen">
+    <div className="bg-white mt-20 text-black p-6 min-h-screen">
       <div className="flex items-center space-x-4">
         <div className="relative">
           <img

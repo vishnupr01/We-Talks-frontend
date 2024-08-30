@@ -173,7 +173,7 @@ const CreatePost = () => {
   }
 
   return (
-    <div className="flex justify-center  items-center  mt-4 bg-gray-100">
+    <div className="flex justify-center mt-20 items-center  mt-4 bg-gray-100">
       <div className="w-full max-w-3xl p-8 bg-white rounded-lg shadow-md">
         <h2 className="text-xl font-bold text-black mb-4">Create Post</h2>
         <form onSubmit={handleSubmit(onSubmit)}>

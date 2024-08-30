@@ -6,13 +6,13 @@ import { useNavigate } from 'react-router-dom';
 // dotenv.config()
 const Lobby = () => {
   const [roomName, setRoomName] = useState('');
-  const [roomId, setRoomId] = useState('');
+  const [token, setRoomId] = useState('');
   const [client, setClient] = useState(null);
   const navigate=useNavigate()
 
   const enterRoom = async (e) => {
     e.preventDefault();
-    navigate('/home/room',{ state: {roomId,roomName } })
+    navigate('/home/room',{ state: {roomName} })
     // try {
       
     //   const appId =  process.env.REACT_APP_AGORA_APP_ID; 

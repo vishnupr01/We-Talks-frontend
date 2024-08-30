@@ -245,7 +245,7 @@ const LivePost = () => {
   console.log("blockedIds", blockedUsers);
 
   return (
-    <div className="flex justify-center items-center bg-gray-200 min-h-screen p-4">
+    <div className="flex justify-center items-center bg-gray-200 min-h-screen mt-20 p-4">
       <div className="bg-white text-black rounded-lg overflow-hidden max-w-md shadow-lg  w-full">
         <InfiniteScroll
           dataLength={posts.length}

@@ -10,9 +10,9 @@ export const searchRoom = async (roomName, roomId) => {
     throw error;
   }
 };
-export const getToken = async (channelName, uid) => {
+export const getToken = async (channelName, uid,role) => {
   try {
-    const response = await Api.get(`${roomRoutes.createToken}?channelName=${encodeURIComponent(channelName)}&uid=${encodeURIComponent(uid)}`)
+    const response = await Api.get(`${roomRoutes.createToken}?channelName=${encodeURIComponent(channelName)}&uid=${encodeURIComponent(uid)}&role=${encodeURIComponent(role)}`)
     return response
   } catch (error) {
     throw error
