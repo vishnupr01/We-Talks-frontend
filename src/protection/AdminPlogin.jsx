@@ -41,14 +41,9 @@ const AdminPlogin = () => {
     return <div>Loading...</div>;
   }
 
-  if (!adminInfo) {
+  
     return <AdminLogin />;
-    // Return null to avoid rendering anything else after navigation
-  } else {
-    console.log("what happens");
-    navigate('/adminHome/dashboard');
-    return null;
-  }
+  
 };
 
 export default AdminPlogin;
