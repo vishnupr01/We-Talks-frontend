@@ -47,7 +47,7 @@ function UserRoutes() {
         <Route path="/otp" element={<OtpPageVerify />} />
 
         <Route element={<PrivateRoute />}>
-          <Route path='/home' element={<Home />}>
+          <Route path='/' element={<Login />}>
           <Route path='/home/lobby' element={<Lobby/>}/>
           <Route path='/home/room' element={<Room/>}/>
             <Route path='/home/friendRequests' element={<FriendRequestsList />} />

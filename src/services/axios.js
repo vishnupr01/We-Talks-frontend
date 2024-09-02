@@ -3,7 +3,7 @@ import axios from 'axios';
 
 // Create an Axios instance
 const Api = axios.create({
-  baseURL: 'https://wetalks.vkart.fun/', // Adjust baseURL as needed
+  baseURL: 'https://wetalks.vkart.fun', // Adjust baseURL as needed
   withCredentials: true,
 });
 
