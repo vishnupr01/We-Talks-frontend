@@ -38,17 +38,14 @@ function UserRoutes() {
   return (
 
     <Routes>
-      <Route path="/*" element={<LoginPrivate />}>
-        <Route path="/" element={<LoginPrivate />} />
-        <Route path="500" element={<ServerErrorPage />} />
-        <Route path="changePassword" element={<ForgotPageVerify />} />
-        <Route path="register" element={<RegisterPrivate />} />
-        <Route path="forgotPassword" element={<ForgotEmailVerify />} />
-        <Route path="googleForm" element={<GooglePrivate />} />
-        <Route path="login" element={<LoginPrivate />} />
-        <Route path="otp" element={<OtpPageVerify />} />
-      </Route>
-
+      <Route path='/' element={<LoginPrivate />} />
+      <Route path='500' element={<ServerErrorPage />} />
+      <Route path='changePassword' element={<ForgotPageVerify />} />
+      <Route path="register" element={<RegisterPrivate />} />
+      <Route path='forgotPassword' element={<ForgotEmailVerify />} />
+      <Route path='googleForm' element={<GooglePrivate />} />
+      <Route path="login" element={<LoginPrivate />} />
+      <Route path="otp" element={<OtpPageVerify />} />
 
       <Route element={<PrivateRoute />}>
 
