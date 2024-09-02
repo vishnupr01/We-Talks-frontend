@@ -18,9 +18,9 @@ const RegisterPrivate = () => {
         const response = await isUser();
         console.log(response)
         if (response.data.message === "user is authenticated") {
-          const { email, id, user_id, image_url, userName } = response.data.user;
+          const { email, id, user_id,image_url,userName } = response.data.user;
           dispatch(login());
-          dispatch(setUser({ email, id, user_id, image_url, userName }));
+          dispatch(setUser({ email, id, user_id,image_url,userName }));
         } else {
           dispatch(logout());
           dispatch(clearUser());
@@ -41,8 +41,11 @@ const RegisterPrivate = () => {
     return <div>Loading...</div>;
   }
 
-    return <Outlet />;
-  
+  if (!userInfo) {
+    return <Signup />;
+  } else {
+    return <Navigate to="/home" replace />;
+  }
 
 };
 
