@@ -40,7 +40,7 @@ function UserRoutes() {
 
     <Routes>
       <Route path='/' element={<LoginPrivate />} />
-      <Route path='/adminLogin' element={<AdminPlogin/>}/>
+      {/* <Route path='/adminLogin' element={<AdminPlogin/>}/> */}
       <Route path='/500' element={<ServerErrorPage />} />
       <Route path='/changePassword' element={<ForgotPageVerify />} />
       <Route path="/register" element={<RegisterPrivate />} />
