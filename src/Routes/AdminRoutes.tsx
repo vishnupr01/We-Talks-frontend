@@ -12,21 +12,20 @@ import BlockedPosts from '../Components/Admin/BlockedPosts';
 
 const AdminRoutes = () => {
   return (
-   
-      <Routes>
-       <Route path='/adminLogin' element={<AdminPlogin/>}>
 
-       </Route>
-       <Route path='/adminHome' element={<AdminPrivate/>}>
-       <Route path='/adminHome/Users' element={<Users/>}/>
-       <Route path='/adminHome/usersprofile' element={<UsersProfile/>}/>
-       <Route path='/adminHome/dashboard' element={<SocialMediaDashboard/>}/>
-       <Route path='/adminHome/postManagement' element={<PostManagement/>}/>
-       <Route path='/adminHome/reports' element={<ReportManagement/>}/>
-       <Route path='/adminHome/blockedPosts' element={<BlockedPosts/>}/>
-       </Route>
-      </Routes>
-  
+    <Routes>
+      <Route path='/adminLogin' element={<AdminPlogin />} />
+
+      <Route path='/adminHome' element={<AdminPrivate />}>
+        <Route path='/adminHome/Users' element={<Users />} />
+        <Route path='/adminHome/usersprofile' element={<UsersProfile />} />
+        <Route path='/adminHome/dashboard' element={<SocialMediaDashboard />} />
+        <Route path='/adminHome/postManagement' element={<PostManagement />} />
+        <Route path='/adminHome/reports' element={<ReportManagement />} />
+        <Route path='/adminHome/blockedPosts' element={<BlockedPosts />} />
+      </Route>
+    </Routes>
+
   );
 }
 

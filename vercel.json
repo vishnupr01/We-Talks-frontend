@@ -1,7 +1,7 @@
 {
   "rewrites": [
     {
-      "source": "/(.*)",
+      "source": "/((?!static|images|favicon.ico|_next/static|_next/image|_next/webpack-hmr|_next/data|api|.*\\..*).*)",
       "destination": "/index.html"
     }
   ]
