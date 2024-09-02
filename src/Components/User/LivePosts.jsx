@@ -453,9 +453,9 @@ const LivePost = () => {
                     <button onClick={() => openModal(post)}>
                       <FontAwesomeIcon className="text-2xl ml-3" icon={farComment} />
                     </button>
-                    <span className="text-2xl ml-3">
+                    {/* <span className="text-2xl ml-3">
                       <FontAwesomeIcon icon={farPaperPlane} />
-                    </span>
+                    </span> */}
                   </div>
                   <div className="text-gray-400 text-sm">
                     {post.likes} likes

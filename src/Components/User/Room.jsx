@@ -583,7 +583,7 @@ const Room = () => {
           </div>
         </section>
 
-        <section className='' id="messages__container">
+        {/* <section className='' id="messages__container">
 
           <div id="messages">
             <div class="message__wrapper">
@@ -713,7 +713,7 @@ const Room = () => {
             <input type="text" name="message" placeholder="Send a message...." />
           </form>
 
-        </section>
+        </section> */}
       </div>
     </main>
   );
