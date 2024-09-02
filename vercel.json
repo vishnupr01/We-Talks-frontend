@@ -1,8 +1,14 @@
 {
   "rewrites": [
     {
-      "source": "/((?!static|images|favicon.ico|_next/static|_next/image|_next/webpack-hmr|_next/data|api|.*\\..*).*)",
+      "source": "/(.*)",
       "destination": "/index.html"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/admin(.*)",
+      "dest": "/index.html"
     }
   ]
 }
