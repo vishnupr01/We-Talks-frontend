@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { Navigate, useLocation, useNavigate } from 'react-router-dom';
 import AgoraRTC from 'agora-rtc-sdk-ng';
 import dotenv from 'dotenv'
 import { getToken, spaceRequest } from '../../api/room';
@@ -48,11 +48,14 @@ const Room = () => {
   const { onlineUsers } = useSocketContext()
   const { socket } = useSocketContext();
   const [loadingStates, setLoadingStates] = useState({});
-
+  const navigate = useNavigate()
   console.log("my roomid", roomId);
   console.log("role", role);
   console.log("roomname", roomName);
-
+  const handeleLeave = () => {
+    navigate('/home')
+    return
+  }
   console.log("token", tokens);
   const handlePlusClick = async (userId) => {
     try {
@@ -113,15 +116,15 @@ const Room = () => {
   // }, []);
   useEffect(() => {
     const handleInvitation = (message) => {
-     console.log("coming event");
-     
+      console.log("coming event");
+
       toast.error(message)
     }
     if (socket) {
       socket.on("declined", handleInvitation);
     }
 
-   
+
     return () => {
       if (socket) {
         socket.off("declined", handleInvitation);
@@ -577,7 +580,7 @@ const Room = () => {
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M0 1v17h24v-17h-24zm22 15h-20v-13h20v13zm-6.599 4l2.599 3h-12l2.599-3h6.802z" /></svg>
               </button>}
 
-            <button id='leave-btn'>
+            <button onClick={()=>handeleLeave()} id='leave-btn'>
               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M16 10v-5l8 7-8 7v-5h-8v-4h8zm-16-8v20h14v-2h-12v-16h12v-2h-14z" /></svg>
             </button>
           </div>
