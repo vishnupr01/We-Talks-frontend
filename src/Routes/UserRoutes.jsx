@@ -36,43 +36,44 @@ import ServerErrorPage from '../pages/User/ServerError';
 
 function UserRoutes() {
   return (
-  
-      <Routes>
-        <Route path='/500' element={<ServerErrorPage/>}/>
-        <Route path='/changePassword' element={<ForgotPageVerify/>}/>
-        <Route path="/register" element={<RegisterPrivate />} />
-        <Route path='/forgotPassword' element={<ForgotEmailVerify/>}/>
-        <Route path='/googleForm' element={<GooglePrivate/>}/>
-        <Route path="/login" element={<LoginPrivate />} />
-        <Route path="/otp" element={<OtpPageVerify />} />
 
-        <Route element={<PrivateRoute />}>
-          <Route path='/' element={<Login />}>
-          <Route path='/home/lobby' element={<Lobby/>}/>
-          <Route path='/home/room' element={<Room/>}/>
-            <Route path='/home/friendRequests' element={<FriendRequestsList />} />
-            <Route path='/home/profile/friendsList' element={<FriendPage />} />
-            <Route path='/home/messages' element={<Message />}>
-              <Route path='messageBox' element={<MessageBox />} />
-              <Route index element={<DefaultMsg />} />
-            </Route>
-            <Route path='/home/notifications' element={<Notification />} />
-            <Route path='/home/postDetails' element={<PostEditingPage />} />
-            <Route path='/home/createPost' element={<CreatePost />} />
-            <Route path='/home/editProfile' element={<EditProfile />} />
-            <Route path='/home/friendProfile' element={<FriendProfile />}>
-              <Route index element={<FriendPosts />} />
-            </Route> 
-            <Route path='/home/profile' element={<ProfileComponent />}> 
-              <Route path='/home/profile/saved' element={<SavedPosts />} />
-              <Route index element={<Posts />} />
-            </Route>
-            <Route index element={<LivePost />} />
+    <Routes>
+      <Route path='/500' element={<ServerErrorPage />} />
+      <Route path='/changePassword' element={<ForgotPageVerify />} />
+      <Route path="/register" element={<RegisterPrivate />} />
+      <Route path='/forgotPassword' element={<ForgotEmailVerify />} />
+      <Route path='/googleForm' element={<GooglePrivate />} />
+      <Route path="/login" element={<LoginPrivate />} />
+      <Route path="/otp" element={<OtpPageVerify />} />
+
+      <Route element={<PrivateRoute />}>
+        <Route path='/' element={<Home />} />
+        <Route path='/home' element={<Home />}>
+          <Route path='/home/lobby' element={<Lobby />} />
+          <Route path='/home/room' element={<Room />} />
+          <Route path='/home/friendRequests' element={<FriendRequestsList />} />
+          <Route path='/home/profile/friendsList' element={<FriendPage />} />
+          <Route path='/home/messages' element={<Message />}>
+            <Route path='messageBox' element={<MessageBox />} />
+            <Route index element={<DefaultMsg />} />
           </Route>
+          <Route path='/home/notifications' element={<Notification />} />
+          <Route path='/home/postDetails' element={<PostEditingPage />} />
+          <Route path='/home/createPost' element={<CreatePost />} />
+          <Route path='/home/editProfile' element={<EditProfile />} />
+          <Route path='/home/friendProfile' element={<FriendProfile />}>
+            <Route index element={<FriendPosts />} />
+          </Route>
+          <Route path='/home/profile' element={<ProfileComponent />}>
+            <Route path='/home/profile/saved' element={<SavedPosts />} />
+            <Route index element={<Posts />} />
+          </Route>
+          <Route index element={<LivePost />} />
         </Route>
-        <Route path='*' element={<NotFound />} />
-      </Routes>
-  
+      </Route>
+      <Route path='*' element={<NotFound />} />
+    </Routes>
+
   );
 }
 
