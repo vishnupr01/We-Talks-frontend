@@ -30,11 +30,15 @@ import FriendRequestsList from '../Components/User/FriendRequestsList';
 import FriendPage from '../Components/User/FriendsPage';
 import Room from '../Components/User/Room';
 import Lobby from '../Components/User/Lobby';
+import NotFound from '../pages/User/NotFound';
+import ServerErrorPage from '../pages/User/ServerError';
+
 
 function UserRoutes() {
   return (
-    <Router>
+  
       <Routes>
+        <Route path='/500' element={<ServerErrorPage/>}/>
         <Route path='/changePassword' element={<ForgotPageVerify/>}/>
         <Route path="/register" element={<RegisterPrivate />} />
         <Route path='/forgotPassword' element={<ForgotEmailVerify/>}/>
@@ -66,8 +70,9 @@ function UserRoutes() {
             <Route index element={<LivePost />} />
           </Route>
         </Route>
+        <Route path='*' element={<NotFound />} />
       </Routes>
-    </Router>
+  
   );
 }
 

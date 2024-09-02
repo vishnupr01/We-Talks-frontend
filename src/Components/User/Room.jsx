@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import AgoraRTC from 'agora-rtc-sdk-ng';
 import dotenv from 'dotenv'
-import { getToken } from '../../api/room';
+import { getToken, spaceRequest } from '../../api/room';
 import { available } from '../../redux/slices/form';
 import { useSelector } from 'react-redux';
 import { useSocketContext } from '../../context/SocketContext';
@@ -10,6 +10,7 @@ import { fetchAllFriends } from '../../api/user';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import CircleSpinner from '../skeletons/CircleSpinner';
+import toast from 'react-hot-toast';
 
 // dotenv.config()
 const APP_ID = "83aa3fc60aad468c9daa2d90ee10f8b4" // Replace with your Agora App ID
@@ -45,19 +46,43 @@ const Room = () => {
   const rtcClientRef = useRef(null)
   const { id } = useSelector((state) => state.authSlice.user);
   const { onlineUsers } = useSocketContext()
-
+  const { socket } = useSocketContext();
+  const [loadingStates, setLoadingStates] = useState({});
 
   console.log("my roomid", roomId);
   console.log("role", role);
   console.log("roomname", roomName);
 
   console.log("token", tokens);
-  const handlePlusClick = () => {
-    setShowSandTimer(true);
+  const handlePlusClick = async (userId) => {
+    try {
+      setLoadingStates((prevState) => ({
+        ...prevState,
+        [userId]: !prevState[userId], // Toggle loading state for the clicked friend
+      }));
+      // setShowSandTimer(true);
+      setTimeout(() => {
+        setLoadingStates((prevState) => ({
+          ...prevState,
+          [userId]: !prevState[userId], // Toggle loading state for the clicked friend
+        }));
+      }, 3000);
+      await spaceRequest(roomId, tokens, userId)
 
-    setTimeout(() => {
-      setShowSandTimer(false);
-    }, 3000); // Hide sand timer after 3 seconds
+
+
+
+    } catch (error) {
+      console.log(error);
+
+    } finally {
+      setLoadingStates((prevState) => ({
+        ...prevState,
+        [userId]: !prevState[userId], // Toggle loading state for the clicked friend
+      }));
+
+    }
+    // Hide sand timer after 3 seconds
   };
 
   useEffect(() => {
@@ -86,6 +111,24 @@ const Room = () => {
     const messagesContainer = document.getElementById('messages');
     messagesContainer.scrollTop = messagesContainer.scrollHeight;
   }, []);
+  useEffect(() => {
+    const handleInvitation = (message) => {
+     console.log("coming event");
+     
+      toast.error(message)
+    }
+    if (socket) {
+      socket.on("declined", handleInvitation);
+    }
+
+   
+    return () => {
+      if (socket) {
+        socket.off("declined", handleInvitation);
+      }
+    };
+
+  }, [socket])
 
 
 
@@ -96,7 +139,7 @@ const Room = () => {
     } else {
       token = roomName
     }
-    token = "007eJxTYKjZuE516hOHl3n3H63LVsjz/6x+vKiOLWArf+eNXXerFWoUGCyMExON05LNDBITU0zMLJItUxITjVIsDVJTDQ3SLJJMpsy+mNYQyMjQF1fMzMgAgSA+K4OhgbGJCQMDAAEDIOo="
+    token = "007eJxTYDCc/DJZ2/llMpdpMYPYGY/Yq53H9AvCTvArPfsXIFd49b8Cg4VxYqJxWrKZQWJiiomZRbJlSmKiUYqlQWqqoUGaRZKJyZlLaQ2BjAzvxTJYGBkgEMRnZTA0MDYxYWAAADBUHrY="
 
     console.log("token gottt", token);
 
@@ -259,11 +302,7 @@ const Room = () => {
       if (child) {
         document.getElementById('streams__container').appendChild(child);
       }
-      // let videoFrames = document.getElementsByClassName('video__container');
-      // Array.from(videoFrames).forEach((frame) => {
-      //   frame.style.height = '300px';
-      //   frame.style.width = '300px';
-      // });
+
     }
   };
   useEffect(() => {
@@ -441,19 +480,19 @@ const Room = () => {
                 }`}
             >
               <ul className="mt-2 space-y-2 pb-4 pt-2 pl-2 pr-2">
-                {onlineFriends.length===0&&<p> No one online</p>}
+                {onlineFriends.length === 0 && <p> No one online</p>}
                 {onlineFriends.map((friend) => (
-                  <li key={friend.id} className="p-2 bg-black-100 rounded-md text-white flex items-center justify-between">
+                  <li key={friend._id} className="p-2 bg-black-100 rounded-md text-white flex items-center justify-between">
                     <div className='flex items-center'>
                       {/* Friend's name */}
                       <span>{friend.name}</span>
                     </div>
                     {/* Conditional rendering for the spinner or plus icon */}
                     <div className='flex items-center'>
-                      {showSandTimer ? (
+                      {loadingStates[friend._id] ? (
                         <div className="sand-spinner"></div>
                       ) : (
-                        <FontAwesomeIcon onClick={handlePlusClick} className="ml-4 cursor-pointer" icon={faPlus} />
+                        <FontAwesomeIcon onClick={() => handlePlusClick(friend._id)} className="ml-4 cursor-pointer" icon={faPlus} />
                       )}
                     </div>
                   </li>
@@ -484,7 +523,7 @@ const Room = () => {
               style={{
                 height: expandedFrameId ? '100px' : '200px',
                 width: expandedFrameId ? '100px' : '300px',
-                marginLeft:expandedFrameId? '0px' :'240px'
+                marginLeft: expandedFrameId ? '0px' : '240px'
               }}
               class="video__container " id={`user-container-${userUid}`}>
 
@@ -500,8 +539,8 @@ const Room = () => {
                   style={{
                     height: expandedFrameId ? '100px' : '200px',
                     width: expandedFrameId ? '100px' : '300px',
-                   
-                   
+
+
                   }}
                 >
 

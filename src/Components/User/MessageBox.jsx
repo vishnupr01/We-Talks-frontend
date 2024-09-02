@@ -17,6 +17,7 @@ const MessageBox = () => {
   const [blockedUsers, setBlockedUsers] = useState([])
   const { receiverId, receiverProfile, receiverName } = location.state || {};
   const { id } = useSelector((state) => state.authSlice.user);
+
   const fetchMessage = async (receiverId) => {
     try {
       setLoading(true);
@@ -66,7 +67,7 @@ const MessageBox = () => {
         {isOnline(receiverId) && <p className='text-gray-400 ml-2'>online</p>}
       </div>
       <div className='flex-1 mr-24 overflow-auto'>
-        <MessagesBubble messages={messages} receiverProfile={receiverProfile} />
+        <MessagesBubble messages={messages } currentUserId={receiverId} receiverProfile={receiverProfile} />
       </div>
       <div className='fixed mt-96 pt-44 w-4/6'>
       {isBlocked&&<p className='ml-52 text-red-500'>You can't send more messages yep...</p>}

@@ -8,10 +8,11 @@ import UsersProfile from '../Components/Admin/UserProfile';
 import SocialMediaDashboard from '../Components/Admin/Dashboard';
 import ReportManagement from '../Components/Admin/ReportManagement';
 import PostManagement from '../Components/Admin/PostManagement';
+import BlockedPosts from '../Components/Admin/BlockedPosts';
 
 const AdminRoutes = () => {
   return (
-    <Router>
+   
       <Routes>
        <Route path='/adminLogin' element={<AdminPlogin/>}>
 
@@ -20,11 +21,12 @@ const AdminRoutes = () => {
        <Route path='/adminHome/Users' element={<Users/>}/>
        <Route path='/adminHome/usersprofile' element={<UsersProfile/>}/>
        <Route path='/adminHome/dashboard' element={<SocialMediaDashboard/>}/>
-       <Route path='/adminHome/reports' element={<ReportManagement/>}/>
        <Route path='/adminHome/postManagement' element={<PostManagement/>}/>
+       <Route path='/adminHome/reports' element={<ReportManagement/>}/>
+       <Route path='/adminHome/blockedPosts' element={<BlockedPosts/>}/>
        </Route>
       </Routes>
-    </Router>
+  
   );
 }
 

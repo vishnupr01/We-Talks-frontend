@@ -7,7 +7,7 @@ import { deletePost, saveCaption, singlePost } from '../../api/post';
 import { useLocation, useNavigate } from 'react-router-dom';
 import Slider from 'react-slick';
 import { toast } from 'react-hot-toast';
-import { deleteAdminPost, singlePostAdmin } from '../../api/admin';
+import { blockPost, deleteAdminPost, singlePostAdmin } from '../../api/admin';
 
 const PostManagement = () => {
   const [isDropdownOpen, setDropdownOpen] = useState(false);
@@ -17,7 +17,7 @@ const PostManagement = () => {
   const [caption, setCaption] = useState('');
   const navigate = useNavigate()
   const location = useLocation();
-  const { postId } = location.state;
+  const { postId,reportId } = location.state;
 
   const sliderSettings = {
     dots: true,
@@ -56,10 +56,10 @@ const PostManagement = () => {
   }
 
   useEffect(() => {
-    const fetchPost = async (postId) => {
+    const fetchPost = async (postId,reportId) => {
       try {
         setLoading(true);
-        const response = await singlePostAdmin(postId);
+        const response = await singlePostAdmin(postId,reportId);
         console.log("data", response);
         setPostData(response.data.data);
         setCaption(response.data.data[0].caption);
@@ -69,19 +69,19 @@ const PostManagement = () => {
         setLoading(false);
       }
     };
-    fetchPost(postId);
-  }, [postId]);
+    fetchPost(postId,reportId);
+  }, [postId,reportId]);
 
 
-  const handleDelete = async (postId) => {
+  const handleBlock = async (postId) => {
     try {
-      const response = await deleteAdminPost(postId)
+      const response = await blockPost(postId)
       console.log(response)
       if (response.data.status === "success") {
         navigate('/adminHome/reports')
-        toast.success("post deleted")
+        toast.success("post Blocked")
       } else {
-        toast.error("post deletion failed")
+        toast.error("post Blocking failed")
       }
 
     } catch (error) {
@@ -93,23 +93,23 @@ const PostManagement = () => {
   }
 
   if (loading) return <div>Loading...</div>;
-  console.log("img", postData[0].details.name);
+
   return (
     <div className="p-4 sm:p-12  prose font-stardos dark:prose-invert min-h-screen border bg-gray-200">
-      <h1 className="text-xl  sm:text-3xl pl-40 font-bold mb-4 sm:mb-8 text-center sm:text-left">Edit Post</h1>
+      <h1 className="text-xl text-black font-mono  sm:text-3xl pl-40 font-bold mb-4 sm:mb-8 text-center sm:text-left">Reported Post</h1>
       <div className="bg-white dark:bg-white text-black dark:text-black p-4 sm:p-8 rounded-lg shadow-lg max-w-full sm:max-w-5xl mx-auto">
         <div className="flex flex-col md:flex-row items-start space-y-6 md:space-y-0 md:space-x-6">
           <div className="w-full md:w-1/2">
-            {postData[0]?.images?.length > 1 ? (
+            {postData?.postDetails?.images?.length > 1 ? (
               <Slider {...sliderSettings}>
-                {postData[0].images.map((img, imgIndex) => (
+                {postData?.postDetails.images.map((img, imgIndex) => (
                   <img key={imgIndex} className="w-full object-cover" src={img} alt="Post" />
                 ))}
               </Slider>
             ) : (
               <img
                 className="w-full object-cover mb-4"
-                src={postData[0]?.images[0]}
+                src={postData.postDetails.images[0]}
                 alt="Post"
               />
             )}
@@ -121,7 +121,7 @@ const PostManagement = () => {
 
                 <div>
                   <h2 className="text-lg sm:text-xl font-semibold">Caption</h2>
-                  <p className="text-lg sm:text-xl font-normal">{postData[0]?.caption}</p>
+                  <p className="text-lg sm:text-xl font-normal">{postData.postDetails.caption}</p>
                 </div>
 
               </div>
@@ -136,10 +136,10 @@ const PostManagement = () => {
 
                       <Menu.Item>
                         {({ active }) => (
-                          <button onClick={() => handleDelete(postId)}
+                          <button onClick={() => handleBlock(postId)}
                             className={`block w-full px-4 py-2 text-left text-sm ${active ? 'bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-gray-200' : 'text-gray-700 dark:text-gray-400'}`}
                           >
-                            Delete Post
+                            Block Post
                           </button>
                         )}
                       </Menu.Item>
@@ -152,18 +152,27 @@ const PostManagement = () => {
 
             <div className="flex items-center space-x-4">
               <img
-                src={postData[0].details.profileImg}
+                src={postData.reporterDetails.profileImg}
                 alt="User avatar"
                 className="w-12 h-12 sm:w-16 sm:h-16 rounded-full border border-gray-300 dark:border-gray-600"
               />
-              <div className="bg-white dark:bg-white border p-4 sm:p-6 rounded-lg mb-6">
-                <p className="text-black dark:text-black font-normal text-lg">Name: <span className='ml-1'>{postData[0].details.name}</span></p>
-                {!postData[0].details?.bio && <p className="text-gray-700 dark:text-gray-400 text-sm">bio not added..</p>}
-                {postData[0].details.bio && <p className="text-gray-700 dark:text-gray-400 text-sm">{postData[0].details.bio}</p>}
+              <div className="bg-white dark:bg-white border  p-4 sm:p-6 rounded-lg mb-6">
+                <p className="text-black dark:text-black font-normal text-lg">Name: <span className='ml-1'>{postData.reporterDetails.name}</span></p>
+                {!postData.reporterDetails?.bio && <p className="text-gray-700 dark:text-gray-400 text-sm">bio not added..</p>}
+                {postData.reporterDetails.bio && <p className="text-gray-700 dark:text-gray-400 mt-2 text-sm">{postData.reporterDetails.bio}</p>}
+                <p className='mt-2'>Report Category:<span className='text-red-500 ml-2 '>{postData.category}</span></p>
+               
+
 
               </div>
+              
 
             </div>
+            <div>
+             <h1 className='text-xl'>Description</h1>
+             <p>{postData.description}</p>
+            </div>
+           
           </div>
         </div>
       </div>

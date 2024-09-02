@@ -3,21 +3,28 @@ import Bubbles from './Bubbles';
 import MessageSkeleton from '../skeletons/MessageSkeleton';
 import { useSocketContext } from '../../context/SocketContext';
 import notificationSound from '../../assets/sounds/notificationSound.mp3'
+import { useSelector } from 'react-redux';
 
-const MessagesBubble = ({ messages, receiverProfile }) => {
+const MessagesBubble = ({ messages, receiverProfile,currentUserId }) => {
   console.log("message in bubble", messages);
   const [loading, setLoading] = useState(false);
   const [messagesArr, setMessagesArr] = useState([]);
   const lastMessageRef = useRef();
   const { socket } = useSocketContext();
-
+  const { id } = useSelector((state) => state.authSlice.user);
   useEffect(() => {
-    const handleNewMessage = (newMessage) => {
-      console.log('forgot that', newMessage);
-      newMessage.shouldShake = true
+    const handleNewMessage = ({createdMessage,senderId}) => {
+      
+      console.log("my id",currentUserId);
+      console.log("receiverId",senderId); 
+      if(senderId!==currentUserId){
+        return
+      }
+      console.log('forgot that', createdMessage);
+      createdMessage.shouldShake = true
       const sound=new Audio(notificationSound)
       sound.play()
-      setMessagesArr((prevMessages) => [...prevMessages, newMessage]);
+      setMessagesArr((prevMessages) => [...prevMessages, createdMessage]);
     };
     if(socket)
     socket.on("newMessage", handleNewMessage);

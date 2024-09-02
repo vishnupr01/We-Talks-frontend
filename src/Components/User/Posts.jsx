@@ -42,26 +42,27 @@ navigate(`/home/postDetails`,{state:{postId}})
     return <div>Loading...</div>; 
   }
 
-  return(
-  <div className="mt-2 flex justify-center">
-        <div className="max-w-3xl mt-4">
-          <div className="grid grid-cols-3 sm:grid-cols-3 md:grid-cols-3 gap-4">
-            
-            {userData.posts.map((post) => (
-              <button onClick={()=>postDetails(post._id)}>
-              <div key={post.id} className="bg-white shadow-md rounded-lg overflow-hidden">
-                <img src={post.images[0]} alt="Post" className="w-full h-auto object-cover" />
-                <div className="p-4">
-                  <h3 className="text-lg font-semibold">{post.title}</h3>
-                  <p className="text-gray-600">{post.description}</p>
+  return (
+    <div className="mt-2 flex justify-center">
+      <div className="max-w-3xl mt-4">
+        <div className="grid grid-cols-3 sm:grid-cols-3 md:grid-cols-3 gap-4">
+          {userData.posts
+            .filter(post => !post.blocked) 
+            .map((post) => (
+              <button key={post._id} onClick={() => postDetails(post._id)}>
+                <div className="bg-white shadow-md rounded-lg overflow-hidden">
+                  <img src={post.images[0]} alt="Post" className="w-full h-auto object-cover" />
+                  <div className="p-4">
+                    <h3 className="text-lg font-semibold">{post.title}</h3>
+                    <p className="text-gray-600">{post.description}</p>
+                  </div>
                 </div>
-              </div>
               </button>
             ))}
-          </div>
         </div>
       </div>
-  )
+    </div>
+  );
 };
 
 

@@ -126,12 +126,40 @@ export const getReports = async () => {
     throw error
   }
 }
-export const singlePostAdmin = async (postId) => {
+export const singlePostAdmin = async (postId,reportId) => {
   try {
-    const response = await Api.get(`${adminRoutes.postManage}?postId=${postId}`)
+    const response = await Api.get(`${adminRoutes.postManage}?postId=${postId}&reportId=${reportId}`)
     return response
 
   } catch (error) {
     throw error
   }
 }
+export const blockPost = async (postId) => {
+  try {
+    const response = await Api.patch(adminRoutes.blockPost, { postId });
+    console.log("Block Post", response);
+    return response;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const unblockPost = async (postId) => {
+  try {
+    const response = await Api.patch(adminRoutes.unblockPost, { postId });
+    console.log("Unblock Post", response);
+    return response;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const getBlockedPosts = async (currentPage) => {
+  try {
+    const response = await Api.get(`${adminRoutes.blockedPosts}?page=${currentPage}`);
+    return response;
+  } catch (error) {
+    throw error;
+  }
+};

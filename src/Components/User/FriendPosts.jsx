@@ -42,7 +42,9 @@ const FriendPosts = () => {
       <div className="max-w-3xl mt-4">
         <div className="grid grid-cols-3 sm:grid-cols-3 md:grid-cols-3 gap-4">
           
-          {friendProfile.posts.map((post) => (
+          {friendProfile.posts
+          .filter(post => !post.blocked) 
+          .map((post) => (
              <button onClick={()=>postDetails(post._id)}>
             <div key={post.id} className="bg-white shadow-md rounded-lg overflow-hidden">
               <img src={post.images[0]} alt="Post" className="w-full h-auto object-cover" />

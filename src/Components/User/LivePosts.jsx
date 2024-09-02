@@ -13,10 +13,15 @@ import showBlockedAlert from '../../popups/alert';
 import { useSelector } from 'react-redux';
 import CommentModal from './comment';
 import { Menu } from '@headlessui/react';
-import { EllipsisVerticalIcon } from '@heroicons/react/24/solid';
+import { CurrencyEuroIcon, EllipsisVerticalIcon } from '@heroicons/react/24/solid';
 import { getUserProfile } from '../../api/userFunctions';
 import ReportModal from './ReportModal';
 import { toast } from 'react-hot-toast';
+import { useSocketContext } from '../../context/SocketContext';
+import { declineInvitation } from '../../api/room';
+import { fetchMutualFriends } from '../../api/user';
+import { newFriendRequest } from '../../api/notification';
+
 
 const LivePost = () => {
   const [posts, setPosts] = useState([]);
@@ -28,8 +33,96 @@ const LivePost = () => {
   const [blockedUsers, setBlockedUsers] = useState([])
   const [showReportModal, setShowReportModal] = useState(false)
   const [reportPostId, setReportPostId] = useState(null)
+  const [mutualFriendslist, setMutualFriends] = useState([])
   const navigate = useNavigate();
-  const { id } = useSelector((state) => state.authSlice.user);
+  const { socket } = useSocketContext();
+  const { id, name } = useSelector((state) => state.authSlice.user);
+  const sendFriendRequest = async (receiverId) => {
+    try {
+      const response = await newFriendRequest(receiverId);
+      if (response.data.data === "Friend request already exists") {
+        toast("Request already sent");
+        return;
+      }
+
+      if (response.data.status === "success") {
+        toast.success("Friend request sent");
+      }
+
+    } catch (error) {
+      toast.error("Sending request failed");
+      throw error;
+    }
+  }
+  useEffect(() => {
+    const handleInvitation = ({ roomId, userId, token, userName, image, currentUserId }) => {
+      console.log("from invitation", userId);
+
+      toast.custom((t) => (
+        <div
+          className={`${t.visible ? 'animate-enter' : 'animate-leave'
+            } max-w-md w-full bg-white shadow-lg rounded-lg pointer-events-auto flex ring-1 ring-black ring-opacity-5`}
+        >
+          <div className="flex-1 w-0 p-4">
+            <div className="flex items-start">
+              <div className="flex-shrink-0 pt-0.5">
+                <img className="h-10 w-10 rounded-full" src={image} alt="" />
+              </div>
+              <div className="ml-3 flex-1">
+                <p className="text-sm font-medium text-gray-900">{userName}</p>
+                <p className="mt-1 text-sm text-gray-500">Space Invitation from {userName}</p>
+              </div>
+            </div>
+          </div>
+          <div className="flex border-l border-gray-200">
+            <button
+              onClick={() => {
+                toast.dismiss(t.id);  // Dismiss the toast first
+                acceptInvitaion(roomId, token);
+              }}
+              className="w-full border border-transparent rounded-none rounded-r-lg p-4 flex items-center justify-center text-sm font-medium text-indigo-600 hover:text-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            >
+              Accept
+            </button>
+            <button
+              onClick={() => {
+                toast.dismiss(t.id)
+                declineInvitaion(currentUserId)
+              }}
+              className="w-full border border-transparent rounded-none rounded-r-lg p-4 flex items-center justify-center text-sm font-medium text-indigo-600 hover:text-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            >
+              Decline
+            </button>
+          </div>
+        </div>
+      ));
+    };
+
+    if (socket) {
+      socket.on("invitation", handleInvitation);
+    }
+
+    // Cleanup function to remove the listener when the component unmounts or `socket` changes
+    return () => {
+      if (socket) {
+        socket.off("invitation", handleInvitation);
+      }
+    };
+  }, [socket]);
+  const acceptInvitaion = async (roomId, token,) => {
+    const role = "subscriber"
+    try {
+      navigate('/home/room', { state: { roomId, role } })
+
+    } catch (error) {
+
+    }
+  }
+  const declineInvitaion = async (userId) => {
+    console.log("socket function", userId);
+    await declineInvitation(userId)
+
+  }
 
   const openReportModal = (postId) => {
     setReportPostId(postId)
@@ -102,8 +195,19 @@ const LivePost = () => {
 
     // fetchUserProfile()
     fetchPosts();
+    mutualFriends()
 
   }, [page]);
+  const mutualFriends = async () => {
+    try {
+      const response = await fetchMutualFriends()
+      console.log("mutual friend response", response);
+      setMutualFriends(response.data.data)
+
+    } catch (error) {
+      throw error
+    }
+  }
 
   const sliderSettings = {
     dots: true,
@@ -201,10 +305,10 @@ const LivePost = () => {
       </div>
     );
   }
-  const handleReport = async (description) => {
+  const handleReport = async (description, category) => {
     try {
       console.log("description", description, reportPostId);
-      const response = await reportPost(reportPostId, description)
+      const response = await reportPost(reportPostId, description, category)
       if (response.data.data === "report exists") {
         toast("report already sent")
         return
@@ -245,8 +349,9 @@ const LivePost = () => {
   console.log("blockedIds", blockedUsers);
 
   return (
-    <div className="flex justify-center items-center bg-gray-200 min-h-screen mt-20 p-4">
-      <div className="bg-white text-black rounded-lg overflow-hidden max-w-md shadow-lg  w-full">
+    <div className="flex justify-center items-center  bg-gray-200 min-h-screen mt-20 p-4">
+
+      <div className="bg-white text-black rounded-lg overflow-hidden ml-44 max-w-md shadow-lg  w-full">
         <InfiniteScroll
           dataLength={posts.length}
           next={fetchMorePosts}
@@ -367,7 +472,46 @@ const LivePost = () => {
             </div>
           ))}
         </InfiniteScroll>
+
       </div>
+      {mutualFriendslist.length>0&&
+       <div class="bg-white pb-40 ml-52 mb-[1500px] text-black p-4 w-80 rounded-md">
+
+       <div class="flex justify-between items-center mb-4">
+         <h3 class="text-lg font-semibold">Suggested for you</h3>
+         {/* <a href="#" class="text-blue-500 hover:underline text-sm">See All</a> */}
+       </div>
+
+
+       <div class="space-y-4">
+         
+          {mutualFriendslist.map((mutualFriend)=>(
+              <div class="flex items-center justify-between">
+              <div class="flex items-center">
+                <img src={mutualFriend.profileImg} alt="User" class="rounded-full w-10 h-10 object-cover" />
+                <div class="ml-3">
+                  <p class="text-sm font-semibold">{mutualFriend.name}</p>
+                  <p class="text-xs text-gray-400">friend of {mutualFriend.mutualFriend}</p>
+                </div>
+              </div>
+              <button  onClick={()=>sendFriendRequest(mutualFriend._id)} class="text-green-500 font-semibold text-sm hover:underline">Add Friend</button>
+            </div>
+
+          ))}
+      
+
+
+   
+
+       </div>
+
+
+       <div class="mt-6 text-xs text-gray-500 space-y-1">
+         <p>About · Help · Press · API · Jobs · Privacy · Terms · Locations · Language · Meta Verified</p>
+       </div>
+     </div>}
+     
+
       {showModal && <CommentModal selectedPost={selectedPost} onClose={closeModal} />}
       {showReportModal && (
         <ReportModal

@@ -186,3 +186,20 @@ export const refreshToken = async () => {
     throw error
   }
 }
+export const fetchMutualFriends = async () => {
+  try {
+    const response = await Api.get(userRoutes.mutualFriends);
+    return response;
+  } catch (error) {
+    console.error("Error fetching mutual friends", error);
+    throw error;
+  }
+};
+export const deleteFriendRequest = async (requestId) => {
+  try {
+    const response = await Api.delete(`${userRoutes.requestDelete}/${requestId}`);
+    return response;
+  } catch (error) {
+    throw error;
+  }
+};

@@ -47,8 +47,10 @@ const ReportManagement = () => {
     fetchData()
   }, [])
   console.log("reports data", reports);
-  const postDetails=(postId)=>{
-    navigate(`/adminHome/postManagement`,{state:{postId}})
+  const postDetails=(postId,reportId)=>{
+    console.log("report id fk",reportId);
+    
+    navigate(`/adminHome/postManagement`,{state:{postId,reportId}})
     }
     if(loading)return <div>loading...</div>
   return (
@@ -80,7 +82,7 @@ const ReportManagement = () => {
                 <div className="text-sm text-gray-900">{report.description}</div>
               </td>
               <td className="px-6 py-4 text-center">
-                <button onClick={()=>postDetails(report.postId)} className="bg-blue-500 hover:bg-blue-600 text-white text-sm py-1 px-3 rounded-full">
+                <button onClick={()=>postDetails(report.postId,report._id)} className="bg-blue-500 hover:bg-blue-600 text-white text-sm py-1 px-3 rounded-full">
                   Manage
                 </button>
               </td>

@@ -18,3 +18,25 @@ export const getToken = async (channelName, uid,role) => {
     throw error
   }
 }
+
+export const spaceRequest=async(roomId,token,userId)=>{
+  try {
+    const response=await Api.post(roomRoutes.spaceinvitaion,{
+      roomId,
+      token,
+      userId
+    })
+    
+  } catch (error) {
+    
+  }
+}
+export const declineInvitation=async(userId)=>{
+  try {
+    await Api.post(roomRoutes.inviteDeclied,{
+       userId
+    })
+  } catch (error) {
+     throw error
+  }
+}

@@ -90,13 +90,14 @@ export const savedPosts = async () => {
     throw error
   }
 }
-export const reportPost = async (post_id, description) => {
+export const reportPost = async (post_id, description,category) => {
   try {
     console.log("api call",post_id);
     
     const response = await Api.post(postRoutes.reportPost, {
       post_id,
-      description
+      description,
+      category
     })
 
     return response

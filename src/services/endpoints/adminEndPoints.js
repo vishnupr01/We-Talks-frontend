@@ -13,7 +13,11 @@ const adminRoutes = {
   monthDetails: 'api/admin/monthDetails',
   totalData: 'api/admin/totalData',
   getAllReports:'api/admin/getReports',
-  postManage:'api/admin/postManage'
+  postManage:'api/admin/postManage',
+  blockPost: 'api/admin/blockPost', 
+  unblockPost: 'api/admin/unblockPost',  
+  blockedPosts: 'api/admin/blockedPosts'
+  
 
 }
 export default adminRoutes

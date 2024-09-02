@@ -54,6 +54,7 @@ const Message = () => {
   };
 
   // if (loading) return <div>Loading...</div>;
+console.log("conversations", conversations);
 
   return (
     <div className="flex flex-col md:flex-row h-screen mt-20 fixed w-full">

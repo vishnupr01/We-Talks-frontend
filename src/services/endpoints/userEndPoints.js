@@ -21,6 +21,9 @@ const userRoutes={
   searchFriendRoute:'api/user/searchFriend',
   blockUser:'api/user/blockUser',
   unBlockUser:'api/user/unblockUser',
-  refershToken:'api/auth/refreshToken'
+  refershToken:'api/auth/refreshToken',
+  mutualFriends: 'api/user/mutualFriends',
+  requestDelete: 'api/user/deleteRequest',
+  
 }
 export default userRoutes

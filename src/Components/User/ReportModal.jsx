@@ -5,10 +5,19 @@ import { faBan } from '@fortawesome/free-solid-svg-icons';
 
 const ReportModal = ({ isOpen, onClose, onReport }) => {
   const [description, setDescription] = useState('');
+  const [category, setCategory] = useState(''); // State for selected category
+  const [errors, setErrors] = useState('')
 
   const handleReport = () => {
-    onReport(description);
+    console.log("report category",category);
+    
+    if (!category || !description) {
+      setErrors("missing fields")
+      return
+    }
+    onReport( description,category ); // Pass category and description
     setDescription('');
+    setCategory('');
   };
 
   return (
@@ -21,11 +30,35 @@ const ReportModal = ({ isOpen, onClose, onReport }) => {
             Report Post
           </Dialog.Title>
           <Dialog.Description className="mt-2">
+            <div className="mt-2">
+              {errors&&<p className='text-red-600'>{errors}</p>}
+              <label className="block text-sm font-medium text-gray-700 mb-1">Category</label>
+              <select
+                value={category}
+                onChange={(e) =>{
+                  setCategory(e.target.value)
+                  setErrors('')
+                  
+                }}
+                className="w-full border border-gray-300 p-2 rounded-md"
+              >
+                <option value="" disabled>Select a category</option>
+                <option value="Spam">Spam</option>
+                <option value="Harassment">Harassment</option>
+                <option value="Misinformation">Misinformation</option>
+                <option value="18+ content">18+ content</option>
+                <option value="Other">Other</option>
+              </select>
+            </div>
             <textarea
               value={description}
-              onChange={(e) => setDescription(e.target.value)}
+              onChange={(e) =>{
+                setDescription(e.target.value)
+                setErrors('')
+
+              } }
               placeholder="Describe the issue..."
-              className="w-full border border-gray-300 p-2 rounded-md"
+              className="w-full border border-gray-300 p-2 rounded-md mt-3"
               rows="4"
             />
           </Dialog.Description>

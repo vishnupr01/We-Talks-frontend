@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { confirmRequest, fetchRequests } from '../../api/notification';
 import MessageSkeleton from '../skeletons/MessageSkeleton';
 import SkeletonLoading from '../skeletons/Loading';
+import { deleteFriendRequest } from '../../api/user';
+import toast from 'react-hot-toast';
 
 const FriendRequest = ({ profileImage, status, name, mutualFriends, time, onConfirm, onDelete }) => (
   <div className="flex items-center p-4 bg-white border-b border-gray-200">
@@ -60,8 +62,22 @@ const FriendRequestsList = () => {
     fetchFriendRequests();
   }, [newData]);
 
-  const handleDelete = (id) => {
-    console.log(`Deleted friend request with id: ${id}`);
+  const handleDelete = async (requestId) => {
+    try {
+      const response = await deleteFriendRequest(requestId)
+      console.log("delete requests", response);
+      if (response.data.message === "Friend request deleted successfully") {
+        toast.success("request deleted")
+        fetchFriendRequests();
+      } else {
+        toast.error('deletion failed')
+      }
+
+
+    } catch (error) {
+      throw error
+    }
+
   };
 
   const getTimeElapsed = (createdAt) => {
@@ -84,13 +100,13 @@ const FriendRequestsList = () => {
     <div className="mx-auto bg-gray-100 rounded-lg mt-20 h-screen max-w-8xl shadow-lg">
       <div className="p-4 border-b border-gray-300">
         <h1 className="text-2xl font-bold text-black">Friend Requests</h1>
-        {friendRequests.length===0&&<p>No friend requests</p>}
-        {friendRequests.length>0&&<p className="text-gray-600">9 friend requests</p>}
-        
+        {friendRequests.length === 0 && <p>No friend requests</p>}
+        {friendRequests.length > 0 && <p className="text-gray-600">9 friend requests</p>}
+
       </div>
       <div>
         {loading ? (
-          
+
           [...Array(2)].map((_, idx) => <SkeletonLoading key={idx} />)
         ) : (
           friendRequests.map((request) => (
@@ -100,7 +116,7 @@ const FriendRequestsList = () => {
               name={request.senderDetails.name}
               time={getTimeElapsed(request.createdAt)}
               onConfirm={() => handleConfirm(request._id, request.sender)}
-              onDelete={() => handleDelete(request.id)}
+              onDelete={() => handleDelete(request._id)}
               status={request.status}
             />
           ))
