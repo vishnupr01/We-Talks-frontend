@@ -15,7 +15,7 @@ const AdminRoutes = () => {
   return (
    
       <Routes>
-         <Route path='/' element={<LoginPrivate/>} />
+         
        <Route path='/adminLogin' element={<AdminPlogin/>}/>
 
        <Route path='/adminHome' element={<AdminPrivate/>}>
