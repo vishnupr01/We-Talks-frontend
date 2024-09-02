@@ -358,6 +358,44 @@ const LivePost = () => {
           hasMore={hasmore}
           endMessage={<p style={{ textAlign: 'center' }}><b>No more posts...</b></p>}
         >
+
+
+          {mutualFriendslist.length > 0 &&
+            <div class="bg-white pb-40 ml-52 mb-[1500px] text-black p-4 w-80 rounded-md">
+
+              <div class="flex justify-between items-center mb-4">
+                <h3 class="text-lg font-semibold">Suggested for you</h3>
+                {/* <a href="#" class="text-blue-500 hover:underline text-sm">See All</a> */}
+              </div>
+
+
+              <div class="space-y-4">
+
+                {mutualFriendslist.map((mutualFriend) => (
+                  <div class="flex items-center justify-between">
+                    <div class="flex items-center">
+                      <img src={mutualFriend.profileImg} alt="User" class="rounded-full w-10 h-10 object-cover" />
+                      <div class="ml-3">
+                        <p class="text-sm font-semibold">{mutualFriend.name}</p>
+                        <p class="text-xs text-gray-400">friend of {mutualFriend.mutualFriend}</p>
+                      </div>
+                    </div>
+                    <button onClick={() => sendFriendRequest(mutualFriend._id)} class="text-green-500 font-semibold text-sm hover:underline">Add Friend</button>
+                  </div>
+
+                ))}
+
+
+
+
+
+              </div>
+
+
+              <div class="mt-6 text-xs text-gray-500 space-y-1">
+                <p>About · Help · Press · API · Jobs · Privacy · Terms · Locations · Language · Meta Verified</p>
+              </div>
+            </div>}
           {posts.map((post, postIndex) => (
             <div key={post._id || postIndex} className="p-4">
               <div className="flex items-center mb-4">
@@ -474,43 +512,8 @@ const LivePost = () => {
         </InfiniteScroll>
 
       </div>
-      {mutualFriendslist.length>0&&
-       <div class="bg-white pb-40 ml-52 mb-[1500px] text-black p-4 w-80 rounded-md">
-
-       <div class="flex justify-between items-center mb-4">
-         <h3 class="text-lg font-semibold">Suggested for you</h3>
-         {/* <a href="#" class="text-blue-500 hover:underline text-sm">See All</a> */}
-       </div>
 
 
-       <div class="space-y-4">
-         
-          {mutualFriendslist.map((mutualFriend)=>(
-              <div class="flex items-center justify-between">
-              <div class="flex items-center">
-                <img src={mutualFriend.profileImg} alt="User" class="rounded-full w-10 h-10 object-cover" />
-                <div class="ml-3">
-                  <p class="text-sm font-semibold">{mutualFriend.name}</p>
-                  <p class="text-xs text-gray-400">friend of {mutualFriend.mutualFriend}</p>
-                </div>
-              </div>
-              <button  onClick={()=>sendFriendRequest(mutualFriend._id)} class="text-green-500 font-semibold text-sm hover:underline">Add Friend</button>
-            </div>
-
-          ))}
-      
-
-
-   
-
-       </div>
-
-
-       <div class="mt-6 text-xs text-gray-500 space-y-1">
-         <p>About · Help · Press · API · Jobs · Privacy · Terms · Locations · Language · Meta Verified</p>
-       </div>
-     </div>}
-     
 
       {showModal && <CommentModal selectedPost={selectedPost} onClose={closeModal} />}
       {showReportModal && (
