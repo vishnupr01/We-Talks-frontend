@@ -40,6 +40,7 @@ function UserRoutes() {
 
     <Routes>
       <Route path='/' element={<LoginPrivate />} />
+      <Route path='/adminLogin' element={<AdminPlogin />} />
       <Route path='/500' element={<ServerErrorPage />} />
       <Route path='/changePassword' element={<ForgotPageVerify />} />
       <Route path="/register" element={<RegisterPrivate />} />
@@ -51,7 +52,7 @@ function UserRoutes() {
       <Route element={<PrivateRoute />}>
 
         <Route path='/home' element={<Home />}>
-        <Route path='/adminLogin' element={<AdminPlogin />} />
+        
           <Route path='/home/lobby' element={<Lobby />} />
           <Route path='/home/room' element={<Room />} />
           <Route path='/home/friendRequests' element={<FriendRequestsList />} />
