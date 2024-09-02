@@ -714,7 +714,7 @@ const Room = () => {
           </form>
 
         </section> */}
-        <section className='bg-zinc-800' id="messages__container "></section>
+        <section className='bg-zinc-800 h-full' id="messages__container "></section>
       </div>
     </main>
   );
