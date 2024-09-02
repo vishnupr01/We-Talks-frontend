@@ -75,7 +75,7 @@ function UserRoutes() {
           <Route index element={<LivePost />} />
         </Route>
       </Route>
-      <Route path='*' element={<NotFound />} />
+     
     </Routes>
 
   );
