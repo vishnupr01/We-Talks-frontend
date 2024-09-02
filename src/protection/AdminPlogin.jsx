@@ -9,13 +9,13 @@ const AdminPlogin = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
-  const  adminInfo = useSelector((state) => state.adminSlice.adminInfo); // Destructure admin state
+  const adminInfo = useSelector((state) => state.adminSlice.adminInfo); // Destructure admin state
 
   useEffect(() => {
     const checkAdmin = async () => {
       try {
         const response = await isAdmin();
-        console.log("hey",response);
+        console.log("hey", response);
         if (response.data?.message === "Admin is authenticated" && response.data?.admin) {
           const { email, name } = response.data.admin;
           console.log("authenticated");
@@ -41,12 +41,13 @@ const AdminPlogin = () => {
     return <div>Loading...</div>;
   }
 
-  if (adminInfo) {
-    console.log("what happens");
-    navigate('/adminHome');
-    return null; // Return null to avoid rendering anything else after navigation
-  } else {
+  if (!adminInfo) {
     return <AdminLogin />;
+    // Return null to avoid rendering anything else after navigation
+  } else {
+    console.log("what happens");
+    navigate('/adminHome/dashboard');
+    return null;
   }
 };
 
