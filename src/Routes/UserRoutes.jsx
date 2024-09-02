@@ -48,11 +48,11 @@ function UserRoutes() {
       <Route path='/googleForm' element={<GooglePrivate />} />
       <Route path="/login" element={<LoginPrivate />} />
       <Route path="/otp" element={<OtpPageVerify />} />
-
+      <Route path='/adminLogin' element={<AdminPlogin />} />
       <Route element={<PrivateRoute />}>
 
         <Route path='/home' element={<Home />}>
-        <Route path='/adminLogin' element={<AdminPlogin />} />
+       
           <Route path='/home/lobby' element={<Lobby />} />
           <Route path='/home/room' element={<Room />} />
           <Route path='/home/friendRequests' element={<FriendRequestsList />} />
