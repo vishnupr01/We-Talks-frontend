@@ -41,11 +41,8 @@ const RegisterPrivate = () => {
     return <div>Loading...</div>;
   }
 
-  if (userInfo) {
-    return <Navigate to="/home" replace />;
-  } else {
     return <Outlet />;
-  }
+  
 
 };
 
