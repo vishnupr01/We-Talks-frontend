@@ -40,7 +40,9 @@ function UserRoutes() {
     <Routes>
       <Route path='/500' element={<ServerErrorPage />} />
       <Route path='/changePassword' element={<ForgotPageVerify />} />
-      <Route path="/register" element={<RegisterPrivate />} />
+      <Route element={<RegisterPrivate />}>
+      <Route path="/register" element={<Signup />} />
+      </Route>
       <Route path='/forgotPassword' element={<ForgotEmailVerify />} />
       <Route path='/googleForm' element={<GooglePrivate />} />
       <Route path="/login" element={<LoginPrivate />} />
