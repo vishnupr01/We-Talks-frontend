@@ -28,7 +28,7 @@ export const SocketContextProvider = ({ children }) => {
         const response = await getToken();
         const token = response.data.data;
 
-        const socketInstance = io("https://we-talks-frontend.vercel.app/", {
+        const socketInstance = io("https://we-talks-frontend.vercel.app", {
           auth: {
             token: token
           }

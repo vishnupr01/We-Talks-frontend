@@ -44,7 +44,7 @@ const RegisterPrivate = () => {
   if (!userInfo) {
     return <Signup />;
   } else {
-    return <Navigate to="/home" replace />;
+    return <Navigate to="/" replace />;
   }
 
 };
