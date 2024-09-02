@@ -42,7 +42,7 @@ const RegisterPrivate = () => {
   }
 
   if (userInfo) {
-    return <Navigate to="/" replace />;
+    return <Navigate to="/home" replace />;
   } else {
     return <Outlet />;
   }
