@@ -10,9 +10,10 @@ import Form from './pages/User/GoogeForm'
 function App() {
   
   return (
-<>   
+<>  
+<AdminRoutes/> 
 <UserRoutes/>
-<AdminRoutes/>
+
 
 
 
