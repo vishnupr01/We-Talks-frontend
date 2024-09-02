@@ -106,11 +106,11 @@ const Room = () => {
   //   setActiveChatContainer(!activeChatContainer);
   // };
 
-  useEffect(() => {
+  // useEffect(() => {
 
-    const messagesContainer = document.getElementById('messages');
-    messagesContainer.scrollTop = messagesContainer.scrollHeight;
-  }, []);
+  //   const messagesContainer = document.getElementById('messages');
+  //   messagesContainer.scrollTop = messagesContainer.scrollHeight;
+  // }, []);
   useEffect(() => {
     const handleInvitation = (message) => {
      console.log("coming event");
