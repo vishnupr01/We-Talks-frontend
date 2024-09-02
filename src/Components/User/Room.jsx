@@ -92,19 +92,19 @@ const Room = () => {
 
     }
   }, [activeMemberContainer])
-  useEffect(() => {
-    if (chatContainerRef.current) {
-      chatContainerRef.current.style.display = activeChatContainer ? 'block' : 'none'
+  // useEffect(() => {
+  //   if (chatContainerRef.current) {
+  //     chatContainerRef.current.style.display = activeChatContainer ? 'block' : 'none'
 
-    }
-  }, [activeChatContainer])
+  //   }
+  // }, [activeChatContainer])
   const toggleMemberContainer = () => {
     setActiveMemberContainer(!activeMemberContainer);
   };
 
-  const toggleChatContainer = () => {
-    setActiveChatContainer(!activeChatContainer);
-  };
+  // const toggleChatContainer = () => {
+  //   setActiveChatContainer(!activeChatContainer);
+  // };
 
   useEffect(() => {
 
