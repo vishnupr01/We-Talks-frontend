@@ -48,7 +48,7 @@ function UserRoutes() {
       <Route path='/googleForm' element={<GooglePrivate />} />
       <Route path="/login" element={<LoginPrivate />} />
       <Route path="/otp" element={<OtpPageVerify />} />
-      <Route path='/adminLogin' element={<AdminPlogin />} />
+      
       <Route element={<PrivateRoute />}>
 
         <Route path='/home' element={<Home />}>
