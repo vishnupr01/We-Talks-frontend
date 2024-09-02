@@ -9,11 +9,13 @@ import SocialMediaDashboard from '../Components/Admin/Dashboard';
 import ReportManagement from '../Components/Admin/ReportManagement';
 import PostManagement from '../Components/Admin/PostManagement';
 import BlockedPosts from '../Components/Admin/BlockedPosts';
+import LoginPrivate from '../protection/LoginPrivate';
 
 const AdminRoutes = () => {
   return (
    
       <Routes>
+         <Route path='/' element={<LoginPrivate/>} />
        <Route path='/adminLogin' element={<AdminPlogin/>}/>
 
        <Route path='/adminHome' element={<AdminPrivate/>}>
