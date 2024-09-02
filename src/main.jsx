@@ -13,7 +13,8 @@ import { BrowserRouter, BrowserRouter as Router, useNavigate } from 'react-route
 
 import { axiosInterceptor } from './services/axios.js';
 
-const AppWrapper = () => {
+const 
+AppWrapper = () => {
   const navigate = useNavigate();
 
   React.useEffect(() => {
