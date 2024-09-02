@@ -526,7 +526,7 @@ const Room = () => {
               style={{
                 height: expandedFrameId ? '100px' : '200px',
                 width: expandedFrameId ? '100px' : '300px',
-                marginLeft: expandedFrameId ? '0px' : '240px'
+                marginLeft: expandedFrameId ? '0px' : '100px'
               }}
               class="video__container " id={`user-container-${userUid}`}>
 
