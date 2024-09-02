@@ -437,7 +437,7 @@
 
 #stream__container {
   justify-self: center;
-  width: calc(100% - 32.7rem);
+  width: 100% ;
   position: fixed;
   top: clac(100vh - 72px);
   overflow-y: auto;
