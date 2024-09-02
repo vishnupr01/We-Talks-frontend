@@ -32,6 +32,7 @@ import Room from '../Components/User/Room';
 import Lobby from '../Components/User/Lobby';
 import NotFound from '../pages/User/NotFound';
 import ServerErrorPage from '../pages/User/ServerError';
+import AdminPlogin from '../protection/AdminPlogin';
 
 
 function UserRoutes() {
@@ -50,6 +51,7 @@ function UserRoutes() {
       <Route element={<PrivateRoute />}>
 
         <Route path='/home' element={<Home />}>
+        <Route path='/adminLogin' element={<AdminPlogin />} />
           <Route path='/home/lobby' element={<Lobby />} />
           <Route path='/home/room' element={<Room />} />
           <Route path='/home/friendRequests' element={<FriendRequestsList />} />
