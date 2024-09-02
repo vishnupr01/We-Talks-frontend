@@ -30,7 +30,7 @@ const FormComponent = () => {
      console.log("status",response.data.status);
       if (response.data.status === 'success') {
         dispatch(unAvailable())
-        navigate('/')
+        navigate('/home')
         return
       }
     } catch (error) {

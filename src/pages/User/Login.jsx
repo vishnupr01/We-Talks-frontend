@@ -27,7 +27,7 @@ const Login = () => {
   useEffect(() => {
     console.log("setmessage")
     if (userInfo) {
-      navigate('/')
+      navigate('/home')
 
     }
   }, [navigate, count])

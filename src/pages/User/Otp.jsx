@@ -53,7 +53,7 @@ const Otp = () => {
       if (response.data.status === "success") {
         if (purpose === 'register') {
           console.log("register otp");
-          navigate('/');
+          navigate('/home');
         } else if (purpose === 'changePassword') {
           console.log("hodfd");
           dispatch(visible());
