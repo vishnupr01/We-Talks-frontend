@@ -7,7 +7,7 @@
   ],
   "routes": [
     {
-      "src": "/admin(.*)",
+      "src": "/admi(.*)",
       "dest": "/index.html"
     }
   ]
