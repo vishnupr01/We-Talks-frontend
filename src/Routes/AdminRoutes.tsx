@@ -20,7 +20,7 @@ const AdminRoutes = () => {
        <Route path='/adminHome/Users' element={<Users/>}/>
        <Route path='/adminHome/usersprofile' element={<UsersProfile/>}/>
        <Route path='/adminHome/dashboard' element={<SocialMediaDashboard/>}/>
-       <Route path='/adminHome/postManagement' element={<PostManagement/>}/>
+       <Route path='/adminHome/postManagement' element={<PostManagement/>}/>   
        <Route path='/adminHome/reports' element={<ReportManagement/>}/>
        <Route path='/adminHome/blockedPosts' element={<BlockedPosts/>}/>
        </Route>
