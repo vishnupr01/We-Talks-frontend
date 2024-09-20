@@ -142,7 +142,7 @@ const Room = () => {
     } else {
       token = roomName
     }
-    token = "007eJxTYOjZ0TrpYaflmfWKHww681lyTta+adh4bvYjO3b+oHNfnkooMFgYJyYapyWbGSQmppiYWSRbpiQmGqVYGqSmGhqkWSSZ+P67n9YQyMhwP4GDlZEBAkF8VgZDA2MTEwYGACU6IXI="
+    token = "007eJxTYHC/fHNtPZO5vFDvDIHCmJjFMm/Wh7LdrjO9v/zrxt07nU8qMFgYJyYapyWbGSQmppiYWSRbpiQmGqVYGqSmGhqkWSSZPIl4m9YQyMgg+zGFmZEBAkF8VgZDA2NjEwYGAJfgIDo="
 
     console.log("token gottt", token);
 
