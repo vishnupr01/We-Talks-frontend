@@ -4,6 +4,7 @@
 @tailwind components;
 @tailwind utilities;
 
+
 /* In your main CSS file */
 .comment-modal-content::-webkit-scrollbar {
   display: none;
